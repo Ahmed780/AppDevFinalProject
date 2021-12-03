@@ -1,0 +1,17 @@
+<resources>
+    <string-array name="Type">
+        <item></item>
+        <item>Sell</item>
+        <item>Buy</item>
+    </string-array>
+
+    <string-array name="Categories">
+        <item></item>
+        <item>Books</item>
+        <item>Electronics</item>
+        <item>App</item>
+        <item>Games</item>
+
+
+    </string-array>
+</resources>

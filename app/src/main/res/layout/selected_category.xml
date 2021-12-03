@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="match_parent"
+    tools:context=".Category">
+
+    <ImageView
+        android:id="@+id/back"
+        android:layout_width="55dp"
+        android:layout_height="54dp"
+        android:src="@drawable/ic_baseline_arrow_back_24"/>
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="210dp"
+        android:layout_height="104dp"
+        android:layout_marginLeft="120dp"
+        android:layout_marginTop="80dp"
+        android:text="Selected category"
+        android:textColor="@color/black"
+        android:textSize="35dp" />
+
+    <TextView
+        android:id="@+id/textTitle"
+        android:layout_width="210dp"
+        android:layout_height="104dp"
+        android:layout_marginLeft="160dp"
+        android:layout_marginTop="250dp"
+        android:text="Title"
+        android:textColor="@color/black"
+        android:textSize="20dp" />
+
+    <EditText
+        android:id="@+id/EditTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="100dp"
+        android:layout_marginTop="280dp"
+        android:ems="10"
+
+        android:inputType="textPersonName"/>
+
+    <TextView
+        android:id="@+id/textPrice"
+        android:layout_width="210dp"
+        android:layout_height="104dp"
+        android:layout_marginLeft="160dp"
+        android:layout_marginTop="330dp"
+        android:text="Price"
+        android:textColor="@color/black"
+        android:textSize="20dp" />
+
+    <EditText
+        android:id="@+id/editPrice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="text"
+        android:layout_below="@id/EditTitle"
+        android:layout_marginTop="40dp"
+        android:layout_centerInParent="true" />
+
+    <TextView
+        android:id="@+id/textDescription"
+        android:layout_width="210dp"
+        android:layout_height="104dp"
+        android:layout_marginLeft="140dp"
+        android:layout_marginTop="430dp"
+        android:textColor="@color/black"
+        android:text="Description"
+        android:textSize="20dp" />
+
+    <EditText
+        android:id="@+id/editDescription"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="text"
+        android:layout_below="@id/EditTitle"
+        android:layout_marginTop="130dp"
+        android:layout_centerInParent="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:id="@+id/image_button"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="120dp"
+        android:layout_marginTop="500dp"
+        android:backgroundTint="@android:color/tertiary_text_light"
+        android:text="Select image" />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:layout_marginTop="550dp"
+        android:id="@+id/image"
+        />
+
+    <Button
+        android:id="@+id/submit_btn"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/editPrice"
+        android:backgroundTint="@color/black"
+        android:onClick="post"
+        android:layout_marginLeft="100dp"
+        android:layout_marginTop="200dp"
+        android:text="Submit"
+        android:textColor="@color/white"
+        tools:ignore="OnClick" />
+
+    <Button
+        android:id="@+id/view_btn"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/editPrice"
+        android:layout_marginLeft="100dp"
+        android:layout_marginTop="150dp"
+        android:backgroundTint="@color/black"
+        android:onClick="View"
+        android:text="View"
+        android:textColor="@color/white"
+        android:visibility="gone"
+        tools:ignore="OnClick" />
+
+</RelativeLayout>
