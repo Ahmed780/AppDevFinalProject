@@ -4,7 +4,12 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/uzair.lakhani/Desktop/Appdev/FinalProject/app/src/main/res/layout/activity_main.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/uzair.lakhani/Desktop/Appdev/FinalProject/app/src/main/res/layout/activity_view_ad.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/uzair.lakhani/Desktop/Appdev/FinalProject/app/src/main/res/layout/categories.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/uzair.lakhani/Desktop/Appdev/FinalProject/app/src/main/res/layout/contact_seller.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/uzair.lakhani/Desktop/Appdev/FinalProject/app/src/main/res/layout/my_account.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/uzair.lakhani/Desktop/Appdev/FinalProject/app/src/main/res/layout/register.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/uzair.lakhani/Desktop/Appdev/FinalProject/app/src/main/res/layout/view_ad.xml" value="0.20416666666666666" />
       </map>
     </option>
   </component>

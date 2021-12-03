@@ -14,7 +14,7 @@
         android:layout_height="54dp"
         android:src="@drawable/ic_baseline_arrow_back_24"/>
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/accountImage"
         android:layout_width="210dp"
         android:layout_height="104dp"
         android:layout_marginLeft="120dp"
@@ -24,7 +24,7 @@
         android:textSize="40dp" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/accountName"
         android:layout_width="210dp"
         android:layout_height="104dp"
         android:layout_marginLeft="120dp"
@@ -35,7 +35,7 @@
 
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/accountEmail"
         android:layout_width="210dp"
         android:layout_height="104dp"
         android:layout_marginLeft="120dp"

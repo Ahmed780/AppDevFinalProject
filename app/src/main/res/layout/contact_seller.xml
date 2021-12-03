@@ -16,7 +16,7 @@
 
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/accountImage"
         android:layout_width="210dp"
         android:layout_height="50dp"
         android:layout_marginLeft="100dp"

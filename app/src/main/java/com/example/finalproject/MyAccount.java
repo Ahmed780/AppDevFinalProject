@@ -20,14 +20,18 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class MyAccount extends AppCompatActivity {
 
-    TextView verifymsg;
+    private static final int GALLERY_INTENT_CODE = 1023;
+    TextView verifymsg, name,email;
     String userId;
     Button verify, contactbtn;
+    FirebaseFirestore firestore;
     FirebaseAuth fAuth;
-    ImageView imageView;
+    ImageView profileImage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,11 +39,13 @@ public class MyAccount extends AppCompatActivity {
         setContentView(R.layout.my_account);
         verify = findViewById(R.id.verify_btn);
         verifymsg = findViewById(R.id.verifymsg);
-
+        name = findViewById(R.id.accountName);
+        email = findViewById(R.id.accountEmail);
+        name = findViewById(R.id.accountName);
         fAuth = FirebaseAuth.getInstance();
-        imageView = findViewById(R.id.back);
+        profileImage = findViewById(R.id.profile_image);
 
-        imageView.setOnClickListener(new View.OnClickListener() {
+        profileImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 finish();
@@ -47,7 +53,14 @@ public class MyAccount extends AppCompatActivity {
         });
 
 
+//        DocumentReference documentReference = firestore.collection("users").document(userId);
+//        documentReference.addSnapshotListener()
+//
+//
+//        }
+
         userId = fAuth.getCurrentUser().getUid();
+
         FirebaseUser user = fAuth.getCurrentUser();
 
         if (!user.isEmailVerified()) {
