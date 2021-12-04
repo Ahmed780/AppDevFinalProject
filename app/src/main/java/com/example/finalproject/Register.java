@@ -145,40 +145,8 @@ public class Register extends AppCompatActivity {
                         Toast.makeText(Register.this, "Error", Toast.LENGTH_SHORT).show();
                     }
                 });
-
-                        }
+                }
                         }
                     });
                 }
-
-//                fireAuth.createUserWithEmailAndPassword(email,passowrd).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-//                    @Override
-//                    public void onComplete(@NonNull Task<AuthResult> task) {
-//                        if (task.isSuccessful()){
-//
-//                            FirebaseUser user = fireAuth.getCurrentUser();
-//                            user.sendEmailVerification().addOnSuccessListener(new OnSuccessListener<Void>() {
-//                                @Override
-//                                public void onSuccess(Void unused) {
-//                                    Toast.makeText(Register.this, "Verification email sent", Toast.LENGTH_SHORT).show();
-//                                }
-//                            }).addOnFailureListener(new OnFailureListener() {
-//                                @Override
-//                                public void onFailure(@NonNull Exception e) {
-//                                    Log.d("tag", "Email not sent" + e.getMessage());
-////                                    Toast.makeText(SecondActivity.this, "Email not sent" + e.getMessage(), Toast.LENGTH_SHORT).show();
-//                                }
-//                            });
-//
-//
-//                            Toast.makeText(Register.this, "Registered successfully", Toast.LENGTH_SHORT).show();
-//                            userID = fireAuth.getCurrentUser().getUid();
-////                            DocumentReference documentReference
-//                            startActivity(new Intent(getApplicationContext(),MyAccount.class));
-//                        }
-//                        else{
-//                            Toast.makeText(Register.this, "Error!" + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-//                        }
-//                    }
-//                });
             }

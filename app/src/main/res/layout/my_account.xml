@@ -39,7 +39,7 @@
         app:civ_border_width="2dp" />
 
     <TextView
-        android:id="@+id/accountName"
+        android:id="@+id/acname"
         android:layout_width="210dp"
         android:layout_height="104dp"
         android:layout_marginLeft="100dp"
@@ -49,16 +49,34 @@
         android:textSize="20dp" />
 
     <TextView
+        android:id="@+id/accountName"
+        android:layout_width="210dp"
+        android:layout_height="104dp"
+        android:layout_marginLeft="160dp"
+        android:layout_marginTop="350dp"
+        android:text="name"
+        android:textColor="@color/black"
+        android:textSize="20dp" />
+
+    <TextView
         android:id="@+id/accountEmail"
+        android:layout_width="210dp"
+        android:layout_height="104dp"
+        android:layout_marginLeft="160dp"
+        android:layout_marginTop="400dp"
+        android:text="email"
+        android:textColor="@color/black"
+        android:textSize="20dp" />
+
+    <TextView
+        android:id="@+id/email"
         android:layout_width="210dp"
         android:layout_height="104dp"
         android:layout_marginLeft="100dp"
         android:layout_marginTop="400dp"
-        android:text="Email:"
+        android:text="email"
         android:textColor="@color/black"
         android:textSize="20dp" />
-
-
 
 
     <Button

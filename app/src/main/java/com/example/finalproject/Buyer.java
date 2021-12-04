@@ -8,17 +8,23 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 
 public class Buyer extends AppCompatActivity {
 
@@ -27,7 +33,10 @@ public class Buyer extends AppCompatActivity {
     TextView verifymsg, name,email;
     FirebaseAuth fAuth;
     Button logout,verify;
+    ImageView profileImage,back;
     String userId;
+    FirebaseFirestore fstore;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,10 +48,28 @@ public class Buyer extends AppCompatActivity {
         email = findViewById(R.id.accountEmail2);
         name = findViewById(R.id.accountName2);
         fAuth = FirebaseAuth.getInstance();
-//        profileImage = findViewById(R.id.profile_image);
-    userId = fAuth.getCurrentUser().getUid();
+        fstore = FirebaseFirestore.getInstance();
+//      profileImage = findViewById(R.id.profile_image);
+        back = findViewById(R.id.back2);
+        userId = fAuth.getCurrentUser().getUid();
+        FirebaseUser user = fAuth.getCurrentUser();
 
-    FirebaseUser user = fAuth.getCurrentUser();
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+
+        DocumentReference df = fstore.collection("Users").document(userId);
+        df.addSnapshotListener(this, new EventListener<DocumentSnapshot>() {
+            @Override
+            public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+
+                name.setText(value.getString("Username"));
+                email.setText(value.getString("Email"));
+            }
+        });
 
         if (!user.isEmailVerified()) {
         verifymsg.setVisibility(View.VISIBLE);

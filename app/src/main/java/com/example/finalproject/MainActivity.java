@@ -156,13 +156,13 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        if(FirebaseAuth.getInstance().getCurrentUser() != null){
-            startActivity(new Intent(getApplicationContext(),MyAccount.class));
-        }
-    }
+//    @Override
+//    protected void onStart() {
+//        super.onStart();
+//        if(FirebaseAuth.getInstance().getCurrentUser() != null){
+//            startActivity(new Intent(getApplicationContext(),MyAccount.class));
+//        }
+//    }
 
     private void checkUser(String uid) {
         DocumentReference df = fstore.collection("Users").document(uid);

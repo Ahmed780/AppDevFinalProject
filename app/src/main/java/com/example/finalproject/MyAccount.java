@@ -13,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnFailureListener;
@@ -21,17 +22,21 @@ import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 
 public class MyAccount extends AppCompatActivity {
 
     private static final int GALLERY_INTENT_CODE = 1023;
     TextView verifymsg, name,email;
-    String userId;
+    String uid;
     Button verify;
     FirebaseFirestore firestore;
     FirebaseAuth fAuth;
     ImageView profileImage,back;
+    FirebaseFirestore fstore;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,10 +46,11 @@ public class MyAccount extends AppCompatActivity {
         verifymsg = findViewById(R.id.verifymsg);
         name = findViewById(R.id.accountName);
         email = findViewById(R.id.accountEmail);
-        name = findViewById(R.id.accountName);
         fAuth = FirebaseAuth.getInstance();
+        fstore = FirebaseFirestore.getInstance();
         profileImage = findViewById(R.id.profile_image);
         back = findViewById(R.id.back);
+        uid = fAuth.getCurrentUser().getUid();
 
         back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -59,15 +65,18 @@ public class MyAccount extends AppCompatActivity {
                 finish();
             }
         });
+        DocumentReference df = fstore.collection("Users").document(uid);
+        df.addSnapshotListener(this, new EventListener<DocumentSnapshot>() {
+            @Override
+            public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+
+                name.setText(value.getString("Username"));
+                email.setText(value.getString("Email"));
+            }
+        });
 
 
-//        DocumentReference documentReference = firestore.collection("users").document(userId);
-//        documentReference.addSnapshotListener()
-//
-//
-//        }
-
-        userId = fAuth.getCurrentUser().getUid();
+        uid = fAuth.getCurrentUser().getUid();
 
         FirebaseUser user = fAuth.getCurrentUser();
 
