@@ -102,12 +102,10 @@ public class Register extends AppCompatActivity {
                         userinfo.put("Username",rusername.getText().toString());
                         userinfo.put("Email",remail.getText().toString());
                         userinfo.put("Password",rpassword.getText().toString());
-
-                        userinfo.put("isUser","1");
+                        userinfo.put("isUser","0");
                         df.set(userinfo);
                         startActivity(new Intent(getApplicationContext(),MyAccount.class));
                         finish();
-
                     }
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override

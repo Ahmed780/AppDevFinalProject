@@ -8,8 +8,10 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -20,6 +22,9 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -27,8 +32,10 @@ public class MainActivity extends AppCompatActivity {
     TextInputEditText lEmail;
     TextInputEditText lPassword;
     FirebaseAuth fireAuth;
+    FirebaseFirestore fstore;
     Button loginbtn,registerlink, forgotLink;
     ProgressBar progressBar;
+    CheckBox isSeller,isBuyer;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -41,8 +48,11 @@ public class MainActivity extends AppCompatActivity {
         registerlink = findViewById(R.id.registerLink);
         progressBar = findViewById(R.id.progressBar);
         forgotLink = findViewById(R.id.forgotPassword);
+        isSeller = findViewById(R.id.checkBox1);
+        isSeller = findViewById(R.id.checkBox2);
         getSupportActionBar().hide();
         fireAuth = FirebaseAuth.getInstance();
+        fstore = FirebaseFirestore.getInstance();
 
         loginbtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -68,19 +78,33 @@ public class MainActivity extends AppCompatActivity {
 
                 progressBar.setVisibility(View.VISIBLE);
 
-                fireAuth.signInWithEmailAndPassword(email,passowrd).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                fireAuth.signInWithEmailAndPassword(email,passowrd).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
                     @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()){
-                            Toast.makeText(MainActivity.this, "Logged in successfully", Toast.LENGTH_SHORT).show();
-                            startActivity(new Intent(getApplicationContext(),MyAccount.class));
-                        }
-                        else{
-                            Toast.makeText(MainActivity.this, "Error!" + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-                            progressBar.setVisibility(View.GONE);
-                        }
+                    public void onSuccess(AuthResult authResult) {
+                        Toast.makeText(MainActivity.this, "Logged in successfully", Toast.LENGTH_SHORT).show();
+                        checkUser(authResult.getUser().getUid());
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+
                     }
                 });
+
+//                fireAuth.signInWithEmailAndPassword(email,passowrd).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+//                    @Override
+//                    public void onComplete(@NonNull Task<AuthResult> task) {
+//                        if (task.isSuccessful()){
+//                            Toast.makeText(MainActivity.this, "Logged in successfully", Toast.LENGTH_SHORT).show();
+//                            checkifAdmin(task.getU)
+//                            startActivity(new Intent(getApplicationContext(),MyAccount.class));
+//                        }
+//                        else{
+//                            Toast.makeText(MainActivity.this, "Error!" + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+//                            progressBar.setVisibility(View.GONE);
+//                        }
+//                    }
+//                });
             }
         });
 
@@ -133,5 +157,38 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if(FirebaseAuth.getInstance().getCurrentUser() != null){
+            startActivity(new Intent(getApplicationContext(),MyAccount.class));
+        }
+    }
+
+    private void checkUser(String uid) {
+        DocumentReference df = fstore.collection("Users").document(uid);
+        df.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                Log.d("TAG", "onSuccess: " + documentSnapshot.getData());
+
+                if(documentSnapshot.getString("isAdmin") !=null){
+                    startActivity(new Intent(getApplicationContext(),Admin.class));
+                    finish();
+                }
+                if(documentSnapshot.getString("isUser") !=null) {
+                    startActivity(new Intent(getApplicationContext(),MyAccount.class));
+                    finish();
+                }
+
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+
+            }
+        });
     }
 }
