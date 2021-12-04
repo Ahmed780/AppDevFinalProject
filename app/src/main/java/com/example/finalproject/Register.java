@@ -93,7 +93,7 @@ public class Register extends AppCompatActivity {
         registerbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(!(isSeller.isChecked()) || (isBuyer.isChecked())){
+                if(!(isSeller.isChecked() || isBuyer.isChecked())){
                     Toast.makeText(Register.this, "Select the account type", Toast.LENGTH_SHORT).show();
                     return;
                 }
@@ -130,10 +130,10 @@ public class Register extends AppCompatActivity {
                         userinfo.put("Email",remail.getText().toString());
                         userinfo.put("Password",rpassword.getText().toString());
                         if (isSeller.isChecked()){
-                            userinfo.put("isSeller","0");
+                            userinfo.put("isSeller","1");
                         }
                         if (isBuyer.isChecked()){
-                            userinfo.put("isBuyer","2");
+                            userinfo.put("isBuyer","1");
                         }
                         df.set(userinfo);
                         startActivity(new Intent(getApplicationContext(),MyAccount.class));

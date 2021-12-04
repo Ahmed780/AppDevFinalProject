@@ -34,7 +34,7 @@
         <activity android:name=".MyAccount"
             />
         <activity android:name=".ContactUs" />
-        <activity android:name=".Admin" />
+        <activity android:name=".Buyer" />
         <activity android:name=".Home" />
         <activity android:name=".ViewAd" />
         <activity android:name=".Categories" />

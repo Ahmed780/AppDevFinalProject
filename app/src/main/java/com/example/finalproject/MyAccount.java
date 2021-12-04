@@ -28,10 +28,10 @@ public class MyAccount extends AppCompatActivity {
     private static final int GALLERY_INTENT_CODE = 1023;
     TextView verifymsg, name,email;
     String userId;
-    Button verify, contactbtn;
+    Button verify;
     FirebaseFirestore firestore;
     FirebaseAuth fAuth;
-    ImageView profileImage;
+    ImageView profileImage,back;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +44,14 @@ public class MyAccount extends AppCompatActivity {
         name = findViewById(R.id.accountName);
         fAuth = FirebaseAuth.getInstance();
         profileImage = findViewById(R.id.profile_image);
+        back = findViewById(R.id.back);
+
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
         profileImage.setOnClickListener(new View.OnClickListener() {
             @Override
