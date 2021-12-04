@@ -35,7 +35,6 @@ public class MainActivity extends AppCompatActivity {
     FirebaseFirestore fstore;
     Button loginbtn,registerlink, forgotLink;
     ProgressBar progressBar;
-    CheckBox isSeller,isBuyer;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -48,8 +47,8 @@ public class MainActivity extends AppCompatActivity {
         registerlink = findViewById(R.id.registerLink);
         progressBar = findViewById(R.id.progressBar);
         forgotLink = findViewById(R.id.forgotPassword);
-        isSeller = findViewById(R.id.checkBox1);
-        isSeller = findViewById(R.id.checkBox2);
+//        isSeller = findViewById(R.id.checkBox1);
+//        isBuyer = findViewById(R.id.checkBox2);
         getSupportActionBar().hide();
         fireAuth = FirebaseAuth.getInstance();
         fstore = FirebaseFirestore.getInstance();
@@ -174,11 +173,11 @@ public class MainActivity extends AppCompatActivity {
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 Log.d("TAG", "onSuccess: " + documentSnapshot.getData());
 
-                if(documentSnapshot.getString("isAdmin") !=null){
+                if(documentSnapshot.getString("isSeller") !=null){
                     startActivity(new Intent(getApplicationContext(),Admin.class));
                     finish();
                 }
-                if(documentSnapshot.getString("isUser") !=null) {
+                if(documentSnapshot.getString("isBuyer") !=null) {
                     startActivity(new Intent(getApplicationContext(),MyAccount.class));
                     finish();
                 }

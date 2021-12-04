@@ -6,6 +6,8 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -38,6 +40,7 @@ public class Register extends AppCompatActivity {
     Button registerbtn, loginLink;
     boolean valid = true;
     ProgressBar progressBar;
+    CheckBox isSeller,isBuyer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +52,9 @@ public class Register extends AppCompatActivity {
         rpassword = (TextInputEditText) findViewById(R.id.rpassword);
         loginLink = findViewById(R.id.loginLink);
         getSupportActionBar().hide();
+        isSeller = findViewById(R.id.checkBox1);
+        isBuyer = findViewById(R.id.checkBox2);
+
         registerbtn = findViewById(R.id.registerbtn);
         progressBar = findViewById(R.id.progressBar2);
         fireAuth = FirebaseAuth.getInstance();
@@ -66,10 +72,31 @@ public class Register extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        isSeller.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if (compoundButton.isChecked()){
+                    isBuyer.setChecked(false);
+                }
+            }
+        });
+
+        isBuyer.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if (compoundButton.isChecked()){
+                    isSeller.setChecked(false);
+                }
+            }
+        });
 
         registerbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(!(isSeller.isChecked()) || (isBuyer.isChecked())){
+                    Toast.makeText(Register.this, "Select the account type", Toast.LENGTH_SHORT).show();
+                    return;
+                }
 
                 if (valid){
                     String email = remail.getText().toString().trim();
@@ -102,7 +129,12 @@ public class Register extends AppCompatActivity {
                         userinfo.put("Username",rusername.getText().toString());
                         userinfo.put("Email",remail.getText().toString());
                         userinfo.put("Password",rpassword.getText().toString());
-                        userinfo.put("isUser","0");
+                        if (isSeller.isChecked()){
+                            userinfo.put("isSeller","0");
+                        }
+                        if (isBuyer.isChecked()){
+                            userinfo.put("isBuyer","2");
+                        }
                         df.set(userinfo);
                         startActivity(new Intent(getApplicationContext(),MyAccount.class));
                         finish();
