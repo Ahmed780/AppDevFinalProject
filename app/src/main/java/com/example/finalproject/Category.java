@@ -1,5 +1,6 @@
 package com.example.finalproject;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -20,11 +21,19 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.OnProgressListener;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.UUID;
 
 public class Category  extends AppCompatActivity {
 
@@ -33,28 +42,38 @@ public class Category  extends AppCompatActivity {
     Button imagebtn, submitbtn, viewbtn;
     EditText title, price, description;
     ImageView imageView;
+    private FirebaseStorage storage;
+    private StorageReference storageReference;
     RecyclerView recyclerView;
     DatabaseReference databaseReference;
-
+    private ImageView itemPic;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.selected_category);
-        imagebtn = findViewById(R.id.image_button);
+//        imagebtn = findViewById(R.id.image_button);
         submitbtn = findViewById(R.id.submit_btn);
-        viewbtn = findViewById(R.id.view_btn);
         title = findViewById(R.id.EditTitle);
         price = findViewById(R.id.editPrice);
         recyclerView = findViewById(R.id.recyclerView);
         description = findViewById(R.id.editDescription);
         databaseReference = FirebaseDatabase.getInstance().getReference().child("Ad");
-
+        storage = FirebaseStorage.getInstance();
+        storageReference = storage.getReference();
         imageView = findViewById(R.id.back);
+        itemPic = findViewById(R.id.itemPic);
 
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 finish();
+            }
+        });
+
+        itemPic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                choosePicture();
             }
         });
 
@@ -65,26 +84,66 @@ public class Category  extends AppCompatActivity {
             }
         });
 
-        viewbtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(Category.this, ViewAd.class);
-                startActivity(i);
-                finish();
-            }
-        });
+//        imageView = findViewById(R.id.image);
+//        getSupportActionBar().hide();
 
-        imageView = findViewById(R.id.image);
-        getSupportActionBar().hide();
+//        imagebtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent = new Intent(Intent.ACTION_PICK);
+//                intent.setType("image/*");
+//                startActivityForResult(intent, select_photo);
+//            }
+//        });
+    }
 
-        imagebtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(Intent.ACTION_PICK);
-                intent.setType("image/*");
-                startActivityForResult(intent, select_photo);
-            }
-        });
+    private void choosePicture() {
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(intent, 1);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data){
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode==1 && resultCode==RESULT_OK && data!=null && data.getData()!=null){
+            uri = data.getData();
+            itemPic.setImageURI(uri);
+            uploadPicture();
+        }
+    }
+
+    private void uploadPicture() {
+
+        final ProgressDialog pd = new ProgressDialog(this);
+        pd.setTitle("Uploading Image...");
+        pd.show();
+
+        final String randomKey = UUID.randomUUID().toString();
+        StorageReference mountainsRef = storageReference.child("images/" + randomKey);
+        mountainsRef.putFile(uri)
+                .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                        pd.dismiss();
+                        Snackbar.make(findViewById(android.R.id.content), "Image Uploaded.", Snackbar.LENGTH_LONG).show();
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        pd.dismiss();
+                        Toast.makeText(getApplicationContext(), "Failed To Upload", Toast.LENGTH_LONG).show();
+                    }
+                })
+                .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onProgress(@NonNull UploadTask.TaskSnapshot tasksnapshot) {
+                        double progressPercent = (100.00 * tasksnapshot.getBytesTransferred() / tasksnapshot.getTotalByteCount());
+                        pd.setMessage("Progress: " + (int) progressPercent + "%");
+                    }
+                });
     }
 
     private void insertAdData() {
@@ -107,24 +166,26 @@ public class Category  extends AppCompatActivity {
         Toast.makeText(Category.this, "Ad posted!", Toast.LENGTH_SHORT).show();
         startActivity(new Intent(Category.this,Categories.class));
         finish();
-    }
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == select_photo && resultCode == RESULT_OK && data != null && data.getData() != null) {
-            uri = data.getData();
 
-            try {
-                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
-                imageView.setImageBitmap(bitmap);
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
     }
+//    @Override
+//    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
+//
+//        if (requestCode == select_photo && resultCode == RESULT_OK && data != null && data.getData() != null) {
+//            uri = data.getData();
+//
+//            try {
+//                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
+//                imageView.setImageBitmap(bitmap);
+//            } catch (FileNotFoundException e) {
+//                e.printStackTrace();
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//        }
+//    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();

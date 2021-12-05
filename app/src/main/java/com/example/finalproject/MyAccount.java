@@ -1,7 +1,9 @@
 package com.example.finalproject;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -32,7 +34,7 @@ public class MyAccount extends AppCompatActivity {
     private static final int GALLERY_INTENT_CODE = 1023;
     TextView verifymsg, name,email;
     String uid;
-    Button verify;
+    Button verify, changeProfile;
     FirebaseFirestore firestore;
     FirebaseAuth fAuth;
     ImageView profileImage,back;
@@ -49,6 +51,7 @@ public class MyAccount extends AppCompatActivity {
         fAuth = FirebaseAuth.getInstance();
         fstore = FirebaseFirestore.getInstance();
         profileImage = findViewById(R.id.profile_image);
+        changeProfile = findViewById(R.id.changeProfile);
         back = findViewById(R.id.back);
         uid = fAuth.getCurrentUser().getUid();
 
@@ -62,9 +65,22 @@ public class MyAccount extends AppCompatActivity {
         profileImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                finish();
+
+
             }
         });
+
+        changeProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent intent = new Intent(MyAccount.this,MapsActivity.class);
+                startActivity(intent);
+                Intent openGalleryIntent =  new Intent( Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                startActivityForResult(openGalleryIntent,1000);
+            }
+        });
+
         DocumentReference df = fstore.collection("Users").document(uid);
         df.addSnapshotListener(this, new EventListener<DocumentSnapshot>() {
             @Override
@@ -104,6 +120,15 @@ public class MyAccount extends AppCompatActivity {
 
         }
 
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode == 1000){
+            Uri imageUri = data.getData();
+            profileImage.setImageURI(imageUri);
+        }
     }
 
     @Override

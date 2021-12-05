@@ -2,37 +2,60 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.finalproject">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <!--
+         The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
+         Google Maps Android API v2, but you must specify either coarse or fine
+         location permissions for the "MyLocation" functionality.
+    -->
+<!--    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />-->
+    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
-        android:roundIcon="@mipmap/ic_launcher"
         android:label="Maalamall"
+        android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
-        android:theme="@style/Theme.FinalProject"
-        >
+        android:theme="@style/Theme.FinalProject">
+
+        <!--
+             The API key for Google Maps-based APIs is defined as a string resource.
+             (See the file "res/values/google_maps_api.xml").
+             Note that the API key is linked to the encryption key used to sign the APK.
+             You need a different API key for each encryption key, including the release key that is used to
+             sign the APK for publishing.
+             You can define the keys for the debug and release targets in src/debug/ and src/release/.
+        -->
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/AIzaSyA513JCj_qCuofmX8tv08nzUHOADTSE6A8" />
+
+        <activity
+            android:name=".MapsActivity"
+            android:exported="false"
+            android:label="@string/title_activity_maps" />
         <activity
             android:name=".SplashScreen"
             android:exported="true"
-            android:theme="@style/SplashTheme"
->
+            android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity"
-            android:theme="@style/Theme.FinalProject"/>
-        <activity android:name=".Register"
-            android:theme="@style/Theme.FinalProject"/>
+        <activity
+            android:name=".MainActivity"
+            android:theme="@style/Theme.FinalProject" />
+        <activity
+            android:name=".Register"
+            android:theme="@style/Theme.FinalProject" />
         <activity android:name=".PostAd" />
         <activity android:name=".Category" />
-        <activity android:name=".MyAccount"
-            />
+        <activity android:name=".MyAccount" />
         <activity android:name=".ContactUs" />
         <activity android:name=".Buyer" />
         <activity android:name=".Home" />
@@ -40,4 +63,5 @@
         <activity android:name=".Categories" />
         <activity android:name=".ContactSeller" />
     </application>
+
 </manifest>

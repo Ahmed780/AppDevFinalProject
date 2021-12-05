@@ -1,9 +1,9 @@
 <resources>
-    <string-array name="Type">
-        <item></item>
-        <item>Sell</item>
-        <item>Buy</item>
-    </string-array>
+    <!--    <string-array name="Type">-->
+    <!--        <item></item>-->
+    <!--        <item>Sell</item>-->
+    <!--        <item>Buy</item>-->
+    <!--    </string-array>-->
 
     <string-array name="Categories">
         <item></item>
@@ -14,4 +14,5 @@
 
 
     </string-array>
+    <string name="title_activity_maps" translatable="false">MapsActivity</string>
 </resources>

@@ -29,6 +29,9 @@ android {
 
     compileSdkVersion 31
     buildToolsVersion '28.0.3'
+    buildFeatures {
+        viewBinding true
+    }
 }
 
 dependencies {
@@ -42,6 +45,8 @@ dependencies {
     implementation 'com.google.firebase:firebase-auth:21.0.1'
     implementation platform('com.google.firebase:firebase-bom:28.2.1')
     implementation 'com.android.support:support-annotations:28.0.0'
+    implementation 'com.google.android.gms:play-services-maps:18.0.0'
+    implementation 'com.google.firebase:firebase-storage:20.0.0'
     testImplementation 'junit:junit:'
     implementation 'com.squareup.picasso:picasso:2.71828'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'

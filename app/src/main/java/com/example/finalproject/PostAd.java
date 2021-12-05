@@ -38,14 +38,10 @@ public class PostAd extends AppCompatActivity implements AdapterView.OnItemSelec
 
         btn = findViewById(R.id.post_btn);
 
-        ArrayAdapter<CharSequence> arrayAdapter = ArrayAdapter.createFromResource(this, R.array.Type,android.R.layout.simple_spinner_item);
-        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         ArrayAdapter<CharSequence> arrayAdapter2 = ArrayAdapter.createFromResource(this, R.array.Categories,android.R.layout.simple_spinner_item);
-        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        arrayAdapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
-        spinner.setAdapter(arrayAdapter);
-        spinner.setOnItemSelectedListener(this);
 
         spinner2.setAdapter(arrayAdapter2);
         spinner2.setOnItemSelectedListener(this);

@@ -3,14 +3,20 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/uzair.lakhani/Desktop/Appdev/FinalProject/app/src/main/res/drawable/ic_baseline_image_24.xml" value="0.2203125" />
         <entry key="..\:/Users/uzair.lakhani/Desktop/Appdev/FinalProject/app/src/main/res/layout/activity_main.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/uzair.lakhani/Desktop/Appdev/FinalProject/app/src/main/res/layout/activity_maps.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/uzair.lakhani/Desktop/Appdev/FinalProject/app/src/main/res/layout/activity_view_ad.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/uzair.lakhani/Desktop/Appdev/FinalProject/app/src/main/res/layout/admin.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/uzair.lakhani/Desktop/Appdev/FinalProject/app/src/main/res/layout/categories.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/uzair.lakhani/Desktop/Appdev/FinalProject/app/src/main/res/layout/contact_seller.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/uzair.lakhani/Desktop/Appdev/FinalProject/app/src/main/res/layout/map.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/uzair.lakhani/Desktop/Appdev/FinalProject/app/src/main/res/layout/my_account.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/uzair.lakhani/Desktop/Appdev/FinalProject/app/src/main/res/layout/post_ad.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/uzair.lakhani/Desktop/Appdev/FinalProject/app/src/main/res/layout/register.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/uzair.lakhani/Desktop/Appdev/FinalProject/app/src/main/res/layout/selected_category.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/uzair.lakhani/Desktop/Appdev/FinalProject/app/src/main/res/layout/view_ad.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/uzair.lakhani/Desktop/Appdev/FinalProject/app/src/main/res/xml/map.xml" value="0.20416666666666666" />
       </map>
     </option>
   </component>
