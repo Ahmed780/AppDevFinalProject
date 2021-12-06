@@ -76,8 +76,8 @@ public class MyAccount extends AppCompatActivity {
 
                 Intent intent = new Intent(MyAccount.this,MapsActivity.class);
                 startActivity(intent);
-                Intent openGalleryIntent =  new Intent( Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                startActivityForResult(openGalleryIntent,1000);
+//                Intent openGalleryIntent =  new Intent( Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+//                startActivityForResult(openGalleryIntent,1000);
             }
         });
 

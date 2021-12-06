@@ -4,6 +4,10 @@ public class AdModel {
 
     String title,price,description;
 
+    public AdModel() {
+
+    }
+
     public AdModel(String title, String price, String description) {
         this.title = title;
         this.price = price;
